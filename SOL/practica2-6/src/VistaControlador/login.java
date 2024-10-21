@@ -1,3 +1,7 @@
+
+import VistaControlador.Bienvenida;
+import Modelo.Usuarios;
+import javax.swing.JOptionPane;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -12,8 +16,10 @@ public class login extends javax.swing.JFrame {
     /**
      * Creates new form login
      */
+    private Usuarios modeloUsuarios; 
     public login() {
         initComponents();
+        modeloUsuarios = new Usuarios();
     }
 
     /**
@@ -120,16 +126,21 @@ public class login extends javax.swing.JFrame {
     private void botonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLoginActionPerformed
         // TODO add your handling code here:
         
-        String usua=usuario.getText();
-    
-        
-       
-        
-        
-        
-        
-        
-        
+        String usua = usuario.getText();
+     
+        String contra = new String(password.getPassword());
+        Bienvenida ventana = new Bienvenida();
+        if (modeloUsuarios.validarUsuario(usua, contra)) {
+            this.dispose();
+            ventana.setVisible(true);
+
+        } else {
+            // Si son incorrectas, vibrar ventana y mostrar mensaje de error
+
+            JOptionPane.showMessageDialog(null, "Credenciales incorrectas. Intenta nuevamente.");
+        }
+
+
     }//GEN-LAST:event_botonLoginActionPerformed
 
     private void usuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usuarioActionPerformed
