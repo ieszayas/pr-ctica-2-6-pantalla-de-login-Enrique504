@@ -1,25 +1,31 @@
+package VistaControlador;
 
-import VistaControlador.Bienvenida;
 import Modelo.Usuarios;
 import javax.swing.JOptionPane;
+import BaseDeDatos.BaseDatos;
+import java.awt.Point;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-
 /**
  *
  * @author DAM2_11
  */
-public class login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form login
      */
-    private Usuarios modeloUsuarios; 
-    public login() {
+    private Usuarios modeloUsuarios;
+
+    public Login() {
         initComponents();
         modeloUsuarios = new Usuarios();
+        BaseDatos.conexionBaseDeDatos();
     }
 
     /**
@@ -38,6 +44,7 @@ public class login extends javax.swing.JFrame {
         checkBoxMostrar = new javax.swing.JCheckBox();
         botonLogin = new javax.swing.JButton();
         password = new javax.swing.JPasswordField();
+        crearCuenta = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Login");
@@ -62,7 +69,7 @@ public class login extends javax.swing.JFrame {
             }
         });
 
-        botonLogin.setText("Loguearte");
+        botonLogin.setText("Loguear");
         botonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonLoginActionPerformed(evt);
@@ -72,6 +79,13 @@ public class login extends javax.swing.JFrame {
         password.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordActionPerformed(evt);
+            }
+        });
+
+        crearCuenta.setText("Haz click para crear una cuenta nueva");
+        crearCuenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crearCuentaActionPerformed(evt);
             }
         });
 
@@ -99,6 +113,10 @@ public class login extends javax.swing.JFrame {
                                 .addGap(31, 31, 31)
                                 .addComponent(checkBoxMostrar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(44, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(crearCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,9 +132,11 @@ public class login extends javax.swing.JFrame {
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(checkBoxMostrar)
                     .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addComponent(botonLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
+                .addGap(18, 18, 18)
+                .addComponent(crearCuenta)
+                .addGap(21, 21, 21))
         );
 
         pack();
@@ -125,20 +145,36 @@ public class login extends javax.swing.JFrame {
 
     private void botonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonLoginActionPerformed
         // TODO add your handling code here:
-        
+
         String usua = usuario.getText();
-     
+
         String contra = new String(password.getPassword());
-        Bienvenida ventana = new Bienvenida();
-        if (modeloUsuarios.validarUsuario(usua, contra)) {
-            this.dispose();
-            ventana.setVisible(true);
+        Bienvenida ventana = new Bienvenida(usua);
+//        if (modeloUsuarios.validarUsuario(usua, contra)) {
+//            this.dispose();
+//            ventana.setVisible(true);
 
-        } else {
-            // Si son incorrectas, vibrar ventana y mostrar mensaje de error
-
-            JOptionPane.showMessageDialog(null, "Credenciales incorrectas. Intenta nuevamente.");
-        }
+//        } else {
+//            int desplazamiento = 20;
+//            int duracion = 40;
+//            Point location = this.getLocation();
+//
+//            try {
+//
+//                for (int i = 0; i < 6; i++) {
+//                    this.setLocation(location.x + desplazamiento, location.y);
+//                    Thread.sleep(duracion);
+//                    this.setLocation(location.x - desplazamiento, location.y);
+//                    Thread.sleep(duracion);
+//                }
+//
+//                this.setLocation(location);
+//            } catch (InterruptedException ex) {
+//                System.out.println(ex.getMessage());
+//            }
+//            JOptionPane.showMessageDialog(this, "No existe este usuario", "Error", JOptionPane.ERROR_MESSAGE);
+//
+//        }
 
 
     }//GEN-LAST:event_botonLoginActionPerformed
@@ -147,18 +183,26 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usuarioActionPerformed
 
+
     private void checkBoxMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkBoxMostrarActionPerformed
         // TODO add your handling code here:
-        if(checkBoxMostrar.isSelected()){
-            password.setEchoChar((char) 0 );
-        }else{
+        if (checkBoxMostrar.isSelected()) {
+            password.setEchoChar((char) 0);
+        } else {
             password.setEchoChar('*');
-}
+        }
     }//GEN-LAST:event_checkBoxMostrarActionPerformed
 
     private void passwordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordActionPerformed
+
+    private void crearCuentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearCuentaActionPerformed
+        // TODO add your handling code here:
+        AgregarUsuarios ventanaAgregar = new AgregarUsuarios();
+        this.dispose();
+        ventanaAgregar.setVisible(true);
+    }//GEN-LAST:event_crearCuentaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,20 +221,21 @@ public class login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new login().setVisible(true);
+                new Login().setVisible(true);
             }
         });
     }
@@ -198,6 +243,7 @@ public class login extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonLogin;
     private javax.swing.JCheckBox checkBoxMostrar;
+    private javax.swing.JButton crearCuenta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

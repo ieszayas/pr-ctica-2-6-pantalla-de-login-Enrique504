@@ -53,6 +53,11 @@
               </Group>
               <EmptySpace pref="44" max="32767" attributes="0"/>
           </Group>
+          <Group type="102" alignment="1" attributes="0">
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+              <Component id="crearCuenta" min="-2" pref="268" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="88" max="-2" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -71,9 +76,11 @@
                   <Component id="checkBoxMostrar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="password" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="53" max="32767" attributes="0"/>
+              <EmptySpace pref="36" max="32767" attributes="0"/>
               <Component id="botonLogin" min="-2" pref="34" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="crearCuenta" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -109,7 +116,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="botonLogin">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Loguearte"/>
+        <Property name="text" type="java.lang.String" value="Loguear"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonLoginActionPerformed"/>
@@ -118,6 +125,14 @@
     <Component class="javax.swing.JPasswordField" name="password">
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="passwordActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="crearCuenta">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Haz click para crear una cuenta nueva"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="crearCuentaActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
