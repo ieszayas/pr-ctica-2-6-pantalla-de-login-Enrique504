@@ -17,39 +17,90 @@ import javax.swing.JOptionPane;
  */
 public class Usuarios {
 
-//    private String[] usuarios = {"Carlos","Pablo"};
-//    private String[] contraseñas = {"pass1","pass2"};
-    public static void registrarUsuario(String nombreUsuario, String contraseña) {
+    private String usuario;
+    private String contraseña;
+    private String nombre;
+    private String apellidos;
+    private String fechaNacimiento;
+    private String correo;
 
-        try {
+    public Usuarios(String usuario, String contraseña, String nombre, String apellidos, String fechaNacimiento, String correo) {
+        this.usuario = usuario;
+        this.contraseña = contraseña;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.fechaNacimiento = fechaNacimiento;
+        this.correo = correo;
+    }
+    //    public static void registrarUsuario(String nombreUsuario, String contraseña) {
+//        
+//        
+//        try {
+//
+//            Connection con = Conection.conexionDatos();
+//
+//            String myQueryPrepared = "INSERT INTO usuario(usuario,contraseña) VALUES(?,?);";
+//            PreparedStatement ps = con.prepareStatement(myQueryPrepared);
+//
+//            ps.setString(1, nombreUsuario);
+//            ps.setString(2, contraseña);
+//
+//            ps.executeUpdate();
+//
+//            JOptionPane.showMessageDialog(null, "El usuario es correcto");
+//        } catch (SQLException e) {
+//            System.out.println("Error, ya existe el usuario");
+//            e.printStackTrace();
+//        }
+//
+//    }
 
-            Connection con = Conection.conexionDatos();
+    public String getUsuario() {
+        return usuario;
+    }
 
-            String myQueryPrepared = "INSERT INTO usuario(usuario,contraseña) VALUES(?,?);";
-            PreparedStatement ps = con.prepareStatement(myQueryPrepared);
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
 
-            ps.setString(1, nombreUsuario);
-            ps.setString(2, contraseña);
+    public String getContraseña() {
+        return contraseña;
+    }
 
-            ps.executeUpdate();
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
+    }
 
-            JOptionPane.showMessageDialog(null, "El usuario es correcto");
-        } catch (SQLException e) {
-            System.out.println("Error, ya existe el usuario");
-            e.printStackTrace();
-        }
+    public String getNombre() {
+        return nombre;
+    }
 
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(String fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
 }
-
-//        for (int i = 0; i < usuarios.length; i++) {
-//
-//            if (usuarios[i].equals(nombreUsuario) && contraseñas[i].equals(contraseña)) {
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
-

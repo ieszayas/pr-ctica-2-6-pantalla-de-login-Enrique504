@@ -2,7 +2,7 @@ package VistaControlador;
 
 import Modelo.Usuarios;
 import javax.swing.JOptionPane;
-import BaseDeDatos.BaseDatos;
+import BaseDeDatos.*;
 import java.awt.Point;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -20,11 +20,9 @@ public class Login extends javax.swing.JFrame {
     /**
      * Creates new form login
      */
-    private Usuarios modeloUsuarios;
-
     public Login() {
         initComponents();
-        modeloUsuarios = new Usuarios();
+
         BaseDatos.conexionBaseDeDatos();
     }
 
@@ -150,32 +148,32 @@ public class Login extends javax.swing.JFrame {
 
         String contra = new String(password.getPassword());
         Bienvenida ventana = new Bienvenida(usua);
-//        if (modeloUsuarios.validarUsuario(usua, contra)) {
-//            this.dispose();
-//            ventana.setVisible(true);
 
-//        } else {
-//            int desplazamiento = 20;
-//            int duracion = 40;
-//            Point location = this.getLocation();
-//
-//            try {
-//
-//                for (int i = 0; i < 6; i++) {
-//                    this.setLocation(location.x + desplazamiento, location.y);
-//                    Thread.sleep(duracion);
-//                    this.setLocation(location.x - desplazamiento, location.y);
-//                    Thread.sleep(duracion);
-//                }
-//
-//                this.setLocation(location);
-//            } catch (InterruptedException ex) {
-//                System.out.println(ex.getMessage());
-//            }
-//            JOptionPane.showMessageDialog(this, "No existe este usuario", "Error", JOptionPane.ERROR_MESSAGE);
-//
-//        }
+        if (InsertarLogin.existeUsuario(usua, contra)) {
+            this.dispose();
+            ventana.setVisible(true);
 
+        } else {
+            int desplazamiento = 20;
+            int duracion = 40;
+            Point location = this.getLocation();
+
+            try {
+
+                for (int i = 0; i < 6; i++) {
+                    this.setLocation(location.x + desplazamiento, location.y);
+                    Thread.sleep(duracion);
+                    this.setLocation(location.x - desplazamiento, location.y);
+                    Thread.sleep(duracion);
+                }
+
+                this.setLocation(location);
+            } catch (InterruptedException ex) {
+                System.out.println(ex.getMessage());
+            }
+            JOptionPane.showMessageDialog(this, "No existe este usuario", "Error", JOptionPane.ERROR_MESSAGE);
+
+        }
 
     }//GEN-LAST:event_botonLoginActionPerformed
 
@@ -202,6 +200,7 @@ public class Login extends javax.swing.JFrame {
         AgregarUsuarios ventanaAgregar = new AgregarUsuarios();
         this.dispose();
         ventanaAgregar.setVisible(true);
+
     }//GEN-LAST:event_crearCuentaActionPerformed
 
     /**
