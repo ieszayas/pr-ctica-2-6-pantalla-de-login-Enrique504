@@ -63,4 +63,45 @@ public class InsertarLogin {
         }
         return existe;
     }
+
+    public static boolean verificarUsuarioDuplicado(String usuario) {
+
+        try {
+            Connection con = conexionDatos();
+            String query = "SELECT COUNT(*) FROM usuario WHERE usuario = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, usuario);
+            ResultSet rs = ps.executeQuery();
+            rs.next();
+            return rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            System.out.println("Error, Ya existe el usuario");
+            e.printStackTrace();
+
+        }
+        return false;
+    }
+
+    public static boolean cambiarContraseña(String usuario, String contraseña) {
+
+        try {
+            Connection con = conexionDatos();
+            String myQueryPrepared = "UPDATE usuario set contraseña=? where usuario=?;";
+
+            PreparedStatement ps = con.prepareStatement(myQueryPrepared);
+
+            ps.setString(1, contraseña);
+            ps.setString(2, usuario);
+
+            ps.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+
+        }
+        return false;
+    }
+
 }

@@ -32,29 +32,7 @@ public class Usuarios {
         this.fechaNacimiento = fechaNacimiento;
         this.correo = correo;
     }
-    //    public static void registrarUsuario(String nombreUsuario, String contraseña) {
-//        
-//        
-//        try {
-//
-//            Connection con = Conection.conexionDatos();
-//
-//            String myQueryPrepared = "INSERT INTO usuario(usuario,contraseña) VALUES(?,?);";
-//            PreparedStatement ps = con.prepareStatement(myQueryPrepared);
-//
-//            ps.setString(1, nombreUsuario);
-//            ps.setString(2, contraseña);
-//
-//            ps.executeUpdate();
-//
-//            JOptionPane.showMessageDialog(null, "El usuario es correcto");
-//        } catch (SQLException e) {
-//            System.out.println("Error, ya existe el usuario");
-//            e.printStackTrace();
-//        }
-//
-//    }
-
+ 
     public String getUsuario() {
         return usuario;
     }

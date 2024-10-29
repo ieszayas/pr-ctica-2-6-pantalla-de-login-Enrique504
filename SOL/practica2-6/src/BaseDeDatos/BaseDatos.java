@@ -32,11 +32,11 @@ public class BaseDatos {
 
                 String crearTabla = "CREATE TABLE IF NOT EXISTS usuario(\n"
                         + "    id integer AUTO_INCREMENT ,\n"
-                        + "    usuario varchar(10) ,\n"
+                        + "    usuario varchar(25) ,\n"
                         + "    contraseña varchar(20) NOT NULL,\n"
-                        + "    nombre varchar(15),\n"
-                        + "    apellido varchar(15),\n"
-                        + "    fechaN varchar(6),\n"
+                        + "    nombre varchar(20),\n"
+                        + "    apellido varchar(30),\n"
+                        + "    fechaN varchar(30),\n"
                         + "    correo varchar(30),\n"
                         + "    PRIMARY KEY(id,usuario)\n"
                         + "    );";

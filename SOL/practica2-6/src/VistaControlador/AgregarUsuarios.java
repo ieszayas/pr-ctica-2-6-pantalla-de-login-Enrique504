@@ -4,8 +4,10 @@
  */
 package VistaControlador;
 
-import BaseDeDatos.InsertarLogin;
+import BaseDeDatos.*;
 import Modelo.Usuarios;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -39,7 +41,6 @@ public class AgregarUsuarios extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txtApellido = new javax.swing.JTextField();
-        txtFecha = new javax.swing.JTextField();
         botonVolver = new javax.swing.JButton();
         botonAgregar = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
@@ -50,6 +51,7 @@ public class AgregarUsuarios extends javax.swing.JFrame {
         checkBoxMostrar2 = new javax.swing.JCheckBox();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        calendario = new com.toedter.calendar.JDateChooser();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Agregar nuevo usuario");
@@ -74,6 +76,11 @@ public class AgregarUsuarios extends javax.swing.JFrame {
         jLabel6.setText("Fecha de nacimiento");
 
         botonVolver.setText("Volver");
+        botonVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonVolverActionPerformed(evt);
+            }
+        });
 
         botonAgregar.setText("Agregar");
         botonAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -145,18 +152,18 @@ public class AgregarUsuarios extends javax.swing.JFrame {
                                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(layout.createSequentialGroup()
                                                 .addComponent(txtConfirmarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addGap(47, 47, 47)
                                                 .addComponent(checkBoxMostrar2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                 .addComponent(botonAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                                             .addComponent(txtContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                            .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(calendario, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addContainerGap(23, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
@@ -192,11 +199,11 @@ public class AgregarUsuarios extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(28, 28, 28)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel6)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(calendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -245,31 +252,73 @@ public class AgregarUsuarios extends javax.swing.JFrame {
         String contraseña2 = new String(txtConfirmarContraseña.getPassword());
         String nom = txtNombre.getText();
         String apellido = txtApellido.getText();
-        String fechaNacimiento=txtFecha.getText();
+        //  String fechaNacimiento=txtFecha.getText();
         String correo = txtCorreo.getText();
+        Date fecha = calendario.getDate();
+        String fechaNacimiento = "";
+        if (fecha != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            fechaNacimiento = sdf.format(fecha);
+        }
 
+        if (contraseña.equals(contraseña2) && !usuario.isBlank() && !contraseña.isBlank()) {
+            if (InsertarLogin.verificarUsuarioDuplicado(usuario)) {
+                JOptionPane.showMessageDialog(null, "Usuario duplicado");
 
-        if (contraseña.equals(contraseña2) && !usuario.isBlank() && !contraseña.isBlank() && !contraseña2.isBlank()) {
-            
-            Usuarios usua=new Usuarios(usuario,contraseña,nom,apellido,fechaNacimiento,correo);
-            InsertarLogin.insertarUsuarios(usua);
-            
-            JOptionPane.showMessageDialog(null, "Registro correcto");
-            this.dispose();
-            Login loginUsuario=new Login();
-            loginUsuario.setVisible(true);
+            } else {
+                if (!correo.isBlank()) {
+                    if (validarCorreo(correo)) {
+                        Usuarios usua = new Usuarios(usuario, contraseña, nom, apellido, fechaNacimiento, correo);
+                        InsertarLogin.insertarUsuarios(usua);
+                        JOptionPane.showMessageDialog(null, "Registro correcto");
+                        this.dispose();
+                        Login loginUsuario = new Login();
+                        loginUsuario.setVisible(true);
+                        return;
+
+                    } else {
+                        return;
+                    }
+
+                }
+                Usuarios usua = new Usuarios(usuario, contraseña, nom, apellido, fechaNacimiento, correo);
+                InsertarLogin.insertarUsuarios(usua);
+                JOptionPane.showMessageDialog(null, "Registro correcto");
+                this.dispose();
+                Login loginUsuario = new Login();
+                loginUsuario.setVisible(true);
+
+            }
 
         } else {
             JOptionPane.showMessageDialog(this, "No puede crear el usuario con campos vacios importantes,o tiene que poner la misma contraseña ", "Error", JOptionPane.ERROR_MESSAGE);
+
         }
 
 
-        
     }//GEN-LAST:event_botonAgregarActionPerformed
+    public boolean validarCorreo(String correo) {
 
+        if (!correo.matches("^[A-Za-z0-9+.-]+@(.+)$")) {
+            JOptionPane.showMessageDialog(null, "Correo incorrecto");
+            return false;
+        } else {
+
+        }
+
+        return true;
+    }
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    private void botonVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonVolverActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Login loginUsuario = new Login();
+        loginUsuario.setVisible(true);
+
+    }//GEN-LAST:event_botonVolverActionPerformed
 
     /**
      * @param args the command line arguments
@@ -309,6 +358,7 @@ public class AgregarUsuarios extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAgregar;
     private javax.swing.JButton botonVolver;
+    private com.toedter.calendar.JDateChooser calendario;
     private javax.swing.JCheckBox checkBoxMostrar;
     private javax.swing.JCheckBox checkBoxMostrar2;
     private javax.swing.JLabel jLabel1;
@@ -324,7 +374,6 @@ public class AgregarUsuarios extends javax.swing.JFrame {
     private javax.swing.JPasswordField txtConfirmarContraseña;
     private javax.swing.JPasswordField txtContraseña;
     private javax.swing.JTextField txtCorreo;
-    private javax.swing.JTextField txtFecha;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
